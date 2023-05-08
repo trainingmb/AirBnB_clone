@@ -30,7 +30,7 @@ class BaseModel(object):
 		"""
 		Updates the updated_at to current time
 		"""
-		self.updated_at = = datetime.datetime.now()
+		self.updated_at = datetime.datetime.now()
 
 	def to_dict(self):
 		"""
