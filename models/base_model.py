@@ -30,8 +30,8 @@ class BaseModel(object):
                     object.__setattr__(self, key, value)
         else:
             self.id = uuid.uuid4()
-            self.created_at = datetime.datetime.now()
-            self.updated_at = datetime.datetime.now()
+            self.created_at = dt.now()
+            self.updated_at = dt.now()
 
     def __str__(self):
         """
@@ -47,7 +47,7 @@ class BaseModel(object):
         """
         Updates the updated_at to current time
         """
-        self.updated_at = datetime.datetime.now()
+        self.updated_at = dt.now()
 
     def to_dict(self):
         """
