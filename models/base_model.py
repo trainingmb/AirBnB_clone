@@ -22,7 +22,7 @@ class BaseModel(object):
 		the form of:
 		[<class name>] (<self.id>) <self.__dict__>
 		"""
-		s = "[{2}] ({0}) {1}".fomart(self.id, self.__dict__(),
+		s = "[{2}] ({0}) {1}".format(self.id, self.__dict__(),
 			self.__class__.__name__)
 		return s
 
