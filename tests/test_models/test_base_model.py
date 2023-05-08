@@ -13,7 +13,7 @@ def issentence(s):
     Tests if s is a sentence
     """
     return ((len(s) > 0) and
-            (s.split(" ") > 2))
+            (len(s.split(" ")) > 2))
 
 
 class BaseModelTestCase(unittest.TestCase):
