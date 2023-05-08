@@ -3,7 +3,7 @@
 BaseModel class.
 """
 import uuid
-import datetime
+from datetime import datetime as dt
 
 
 class BaseModel(object):
@@ -12,10 +12,26 @@ class BaseModel(object):
         """
             The initializer for BaseModel
             Creates: id, created_at and updated_at
+            Can also create a BaseModel from a dict
         """
-        self.id = uuid.uuid4()
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        if kwargs is not None:
+            for key, value in kwargs.items():
+                if key == 'created_at':
+                    object.__setattr__(self,
+                                       key,
+                                       dt.fromisoformat(value))
+                elif key == 'updated_at':
+                    object.__setattr__(self,
+                                       key,
+                                       dt.fromisoformat(value))
+                elif key == "__class__":
+                    pass
+                else:
+                    object.__setattr__(self, key, value)
+        else:
+            self.id = uuid.uuid4()
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
 
     def __str__(self):
         """
