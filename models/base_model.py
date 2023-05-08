@@ -5,6 +5,7 @@ BaseModel class.
 import uuid
 import datetime
 
+
 class BaseModel(object):
     """docstring for BaseModel"""
     def __init__(self):
@@ -23,7 +24,7 @@ class BaseModel(object):
         [<class name>] (<self.id>) <self.__dict__>
         """
         s = "[{2}] ({0}) {1}".format(self.id, self.__dict__,
-            self.__class__.__name__)
+              self.__class__.__name__)
         return s
 
     def save(self):
