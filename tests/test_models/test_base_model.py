@@ -2,7 +2,7 @@
 """
 Test Case Model for BaseModel
 """
-import models.BaseModel as BaseModel
+from models.base_model import BaseModel
 import unittest
 import uuid
 import datetime
