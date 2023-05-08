@@ -22,7 +22,7 @@ class BaseModel(object):
 		the form of:
 		[<class name>] (<self.id>) <self.__dict__>
 		"""
-		s = "[{2}] ({0}) {1}".format(self.id, self.__dict__(),
+		s = "[{2}] ({0}) {1}".format(self.id, self.__dict__,
 			self.__class__.__name__)
 		return s
 
@@ -37,7 +37,7 @@ class BaseModel(object):
 		Returns a dictionary containing all keys/values
 		of __dict__ of the instance
 		"""
-		dict_rep = self.__dict__()
+		dict_rep = self.__dict__
 		dict_rep["__class__"] = self.__class__.__name__
 		dict_rep["updated_at"] = self.updated_at.isoformat()
 		dict_rep["created_at"] = self.created_at.isoformat()
