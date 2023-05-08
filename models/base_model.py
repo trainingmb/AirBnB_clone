@@ -8,7 +8,7 @@ import datetime
 
 class BaseModel(object):
     """docstring for BaseModel"""
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
             The initializer for BaseModel
             Creates: id, created_at and updated_at
