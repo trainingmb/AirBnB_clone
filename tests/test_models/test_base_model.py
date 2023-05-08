@@ -7,6 +7,7 @@ import unittest
 import uuid
 import datetime
 
+
 class BaseModelTestCase(unittest.TestCase):
     """
     Class for testing BaseModel
