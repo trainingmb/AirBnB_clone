@@ -14,7 +14,7 @@ class BaseModel(object):
             Creates: id, created_at and updated_at
             Can also create a BaseModel from a dict
         """
-        if kwargs is not None:
+        if (kwargs is not None) and (len(kwargs) > 0):
             for key, value in kwargs.items():
                 if key == 'created_at':
                     object.__setattr__(self,
