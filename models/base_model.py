@@ -2,6 +2,7 @@
 """
 BaseModel class.
 """
+from models import storage
 import uuid
 from datetime import datetime as dt
 
@@ -29,9 +30,10 @@ class BaseModel(object):
                 else:
                     object.__setattr__(self, key, value)
         else:
-            self.id = uuid.uuid4()
+            self.id = str(uuid.uuid4())
             self.created_at = dt.now()
             self.updated_at = dt.now()
+        storage.new(self)
 
     def __str__(self):
         """
@@ -46,15 +48,18 @@ class BaseModel(object):
     def save(self):
         """
         Updates the updated_at to current time
+        Saves the current version of the object
+        to storage
         """
         self.updated_at = dt.now()
+        storage.save()
 
     def to_dict(self):
         """
         Returns a dictionary containing all keys/values
         of __dict__ of the instance
         """
-        dict_rep = self.__dict__
+        dict_rep = self.__dict__.copy()
         dict_rep["__class__"] = self.__class__.__name__
         dict_rep["updated_at"] = self.updated_at.isoformat()
         dict_rep["created_at"] = self.created_at.isoformat()
