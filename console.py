@@ -3,17 +3,40 @@
 Command Loop
 """
 import cmd
+import re
 from shlex import split
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from models import storage
 
 
 def isfloat(num):
+    """
+    Checks if s is a float
+    """
     try:
         float(num)
         return True
     except ValueError:
         return False
+
+def str2dict(s):
+    """
+    Attempts to converts a str 's' to dict
+    """
+    d = None
+    try:
+        d = eval(s)
+    except SyntaxError:
+        return d
+    if isinstance(d, dict):
+        return d
+    else:
+        return None
 
 
 class HBNBCommand(cmd.Cmd):
@@ -22,7 +45,9 @@ class HBNBCommand(cmd.Cmd):
     AirBnB Clone Project
     """
     prompt = "(hbnb)"
-    allowed_classes = {"BaseModel":BaseModel}
+    allowed_classes = {"BaseModel": BaseModel, "User": User,
+                       "State": State, "Amenity": Amenity,
+                       "Place": Place, "Review": Review}
 
     def do_quit(self, line):
         """
@@ -54,13 +79,35 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
+    def do_count(self, line):
+        """
+        Counts the Number of instances saved
+        of a given object
+        """
+        args = split(line)
+        if len(args) == 0:
+            print("** class name missing **")
+        else:
+            if args[0] in self.allowed_classes.keys():
+                all_objs = storage.all()
+                printlist = [str(value) for key, value in all_objs.items() if key.startswith(args[0])]
+                print(len(printlist))
+            else:
+                print("** class doesn't exist **")
+
+    def help_count(self):
+        """
+        Help for create
+        """
+        print("Usage:\ncount <class name>\n")
+
     def do_create(self, line):
         """
         Creates a new instance of BaseModel,
         saves it (to the JSON file) and prints
         the id
         """
-        args = line.split()
+        args = split(line)
         if len(args) == 0:
             print("** class name missing **")
         else:
@@ -82,7 +129,7 @@ class HBNBCommand(cmd.Cmd):
         Prints the string representation of an
         instance based on the class name and id
         """
-        args = line.split()
+        args = split(line)
         if len(args) == 0:
             print("** class name missing **")
         else:
@@ -111,7 +158,7 @@ class HBNBCommand(cmd.Cmd):
         name and id (save the change into the
         JSON file)
         """
-        args = line.split()
+        args = split(line)
         if len(args) == 0:
             print("** class name missing **")
         else:
@@ -140,7 +187,7 @@ class HBNBCommand(cmd.Cmd):
         Prints all string representation of all
         instances based or not on the class name
         """
-        args = line.split()
+        args = split(line)
         if len(args) == 0:
             all_objs = storage.all()
             printlist = [str(value) for _, value in all_objs.items()]
@@ -180,7 +227,11 @@ class HBNBCommand(cmd.Cmd):
                             print("** attribute name missing **")
                         else:
                             obj = all_objs[key]
-                            if len(args) < 4:
+                            d = str2dict(args[2])
+                            if d is not None:
+                                for key, value in d.items():
+                                    obj.__dict__[key] = value
+                            elif len(args) < 4:
                                 print("** value missing **")
                             else:
                                 if args[3].isdigit():
@@ -201,6 +252,24 @@ class HBNBCommand(cmd.Cmd):
         """
         print("Usage:\naupdate <class name> <id> <attribute name>"+
               "\"<attribute value>\"")
+
+    def onecmd(self, line):
+        ''' define $ as a shortcut for the dollar command
+            and ask for confirmation when the interpreter exit'''
+        ms = re.match("([^.\s]+)\.([^\(]+)\((.*)\)", line)
+        if ms is not None:
+            tp = ms.groups()
+            args = split(tp[2])
+            args2 = []
+            for i in args:
+                if i[0] == ',':
+                    i = i[1:]
+                if i[-1] == ',':
+                    i = i[:-1]
+                args2.append(i)
+            line = tp[1] + " " + tp[0] + " " + " ".join(args2)
+        r = super (HBNBCommand, self).onecmd(line)
+        return r
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

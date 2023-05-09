@@ -54,12 +54,20 @@ class FileStorage(object):
         no exception should be raised)
         """
         from models.base_model import BaseModel
+        from models.user import User
+        from models.state import State
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
         tempdict = {}
         newobjs = {}
+        allowed_classes = {"BaseModel": BaseModel, "User": User,
+                           "State": State, "Amenity": Amenity,
+                           "Place": Place, "Review": Review}
         if len(self.__file_path) > 0 and os.path.isfile(self.__file_path):
             with open(self.__file_path, 'r') as file:
                 tempdict = (json.load(file))
             for key, value in tempdict.items():
-                if value["__class__"] == "BaseModel":
-                    newobjs[key] = BaseModel(**value)
+                if value["__class__"] in allowed_classes.keys():
+                    newobjs[key] = allowed_classes[value["__class__"]](**value)
             self.__objects = newobjs
