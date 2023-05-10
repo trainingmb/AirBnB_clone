@@ -26,7 +26,7 @@ class FileStorageTestCase(unittest.TestCase):
 	def test_all(self):
 		fs = FileStorage()
 		dictObjts = fs.all()
-		self.assertisInstance(dictObjts, dict)
+		self.assertIsInstance(dictObjts, dict)
 		self.assertTrue(issentence(fs.all.__doc__))
 
 	def test_new(self):
