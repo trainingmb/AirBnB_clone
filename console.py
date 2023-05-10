@@ -31,12 +31,23 @@ def str2dict(s):
     d = None
     try:
         d = eval(s)
-    except SyntaxError:
+    except Exception:
         return d
     if isinstance(d, dict):
         return d
     else:
         return None
+
+def commaninja(s):
+    """
+    Remove commas from the begining or end
+    the string s
+    """
+    if s[0] == ',':
+        s = s[1:]
+    if s[-1] == ',':
+        s = s[:-1]
+    return s.strip()
 
 
 class HBNBCommand(cmd.Cmd):
@@ -212,7 +223,7 @@ class HBNBCommand(cmd.Cmd):
         name and id by adding or updating attribute
         (save the change into the JSON file).
         """
-        args = split(line)
+        args = [commaninja(x) for x in split(line)]
         if len(args) == 0:
             print("** class name missing **")
         else:
@@ -227,7 +238,10 @@ class HBNBCommand(cmd.Cmd):
                             print("** attribute name missing **")
                         else:
                             obj = all_objs[key]
-                            d = str2dict(args[2])
+                            nl = line[line.find(args[1]) + len(args[1]):]
+                            sf = nl.find("{")
+                            sl = nl.rfind("}")
+                            d = str2dict(nl[sf:sl+1])
                             if d is not None:
                                 for key, value in d.items():
                                     obj.__dict__[key] = value
@@ -250,7 +264,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Help for show
         """
-        print("Usage:\naupdate <class name> <id> <attribute name>"+
+        print("Usage:\nupdate <class name> <id> <attribute name>"+
               "\"<attribute value>\"")
 
     def onecmd(self, line):
@@ -259,15 +273,8 @@ class HBNBCommand(cmd.Cmd):
         ms = re.match("([^.\s]+)\.([^\(]+)\((.*)\)", line)
         if ms is not None:
             tp = ms.groups()
-            args = split(tp[2])
-            args2 = []
-            for i in args:
-                if i[0] == ',':
-                    i = i[1:]
-                if i[-1] == ',':
-                    i = i[:-1]
-                args2.append(i)
-            line = tp[1] + " " + tp[0] + " " + " ".join(args2)
+            args = tp[2].split(", ")
+            line = tp[1] + " " + tp[0] + " " + ", ".join(args)
         r = super (HBNBCommand, self).onecmd(line)
         return r
 
