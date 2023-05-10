@@ -12,6 +12,7 @@ class FileStorage(object):
     """
     __file_path = "file.json"
     __objects = {}
+
     def __init__(self):
         """
         Initiliazer for the FileStorage
