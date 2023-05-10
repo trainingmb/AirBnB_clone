@@ -24,6 +24,7 @@ def isfloat(num):
     except ValueError:
         return False
 
+
 def str2dict(s):
     """
     Attempts to converts a str 's' to dict
@@ -37,6 +38,7 @@ def str2dict(s):
         return d
     else:
         return None
+
 
 def commaninja(s):
     """
@@ -101,7 +103,9 @@ class HBNBCommand(cmd.Cmd):
         else:
             if args[0] in self.allowed_classes.keys():
                 all_objs = storage.all()
-                printlist = [str(value) for key, value in all_objs.items() if key.startswith(args[0])]
+                printlist = [str(value)
+                             for key, value in all_objs.items()
+                             if key.startswith(args[0])]
                 print(len(printlist))
             else:
                 print("** class doesn't exist **")
@@ -206,7 +210,9 @@ class HBNBCommand(cmd.Cmd):
         else:
             if args[0] in self.allowed_classes.keys():
                 all_objs = storage.all()
-                printlist = [str(value) for key, value in all_objs.items() if key.startswith(args[0])]
+                printlist = [str(value)
+                             for key, value in all_objs.items()
+                             if key.startswith(args[0])]
                 print(printlist)
             else:
                 print("** class doesn't exist **")
@@ -264,19 +270,20 @@ class HBNBCommand(cmd.Cmd):
         """
         Help for show
         """
-        print("Usage:\nupdate <class name> <id> <attribute name>"+
+        print("Usage:\nupdate <class name> <id> <attribute name>" +
               "\"<attribute value>\"")
 
     def onecmd(self, line):
         ''' define $ as a shortcut for the dollar command
             and ask for confirmation when the interpreter exit'''
-        ms = re.match("([^.\s]+)\.([^\(]+)\((.*)\)", line)
+        ms = re.match("([^.\\s]+)\\.([^\\(]+)\\((.*)\\)", line)
         if ms is not None:
             tp = ms.groups()
             args = tp[2].split(", ")
             line = tp[1] + " " + tp[0] + " " + ", ".join(args)
-        r = super (HBNBCommand, self).onecmd(line)
+        r = super(HBNBCommand, self).onecmd(line)
         return r
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
