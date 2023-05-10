@@ -23,11 +23,11 @@ class BaseModelTestCase(unittest.TestCase):
     def test_init(self):
         bm1 = BaseModel()
         bm2 = BaseModel(**bm1.to_dict())
-        assertTrue(bm1.id == bm2.id)
-        assertTrue(bm2.created_at = bm1.created_at)
-        assertIsInstance(bm2.created_at, datetime.datetime)
-        assertTrue(bm2.updated_at = bm1.updated_at)
-        assertIsInstance(bm2.updated_at, datetime.datetime)
+        self.assertTrue(bm1.id == bm2.id)
+        self.assertTrue(bm2.created_at = bm1.created_at)
+        self.assertIsInstance(bm2.created_at, datetime.datetime)
+        self.assertTrue(bm2.updated_at = bm1.updated_at)
+        self.assertIsInstance(bm2.updated_at, datetime.datetime)
 
     def test_doc(self):
         bm1 = BaseModel()
@@ -74,3 +74,7 @@ class BaseModelTestCase(unittest.TestCase):
         self.assertTrue("id" in dict_rep.keys())
         self.assertIsInstance(dict_rep["updated_at"], str)
         self.assertIsInstance(dict_rep["created_at"], str)
+
+
+if __name__ == '__main__':
+    unittest.main()
