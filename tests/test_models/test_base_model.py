@@ -37,7 +37,7 @@ class BaseModelTestCase(unittest.TestCase):
     def test_id(self):
         bm1 = BaseModel()
         bm2 = BaseModel()
-        self.assertIsInstance(bm1.id, uuid.UUID)
+        self.assertIsInstance(bm1.id, str)
         self.assertFalse(bm1.id == bm2.id)
 
     def test_createdAt(self):
