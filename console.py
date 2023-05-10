@@ -78,6 +78,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Quit the program
         """
+        print()
         return True
 
     def help_EOF(self):
