@@ -8,6 +8,7 @@ from shlex import split
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
+from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
@@ -277,7 +278,7 @@ class HBNBCommand(cmd.Cmd):
     def onecmd(self, line):
         ''' define $ as a shortcut for the dollar command
             and ask for confirmation when the interpreter exit'''
-        ms = re.match("([^.\\s]+)\\.([^\\(]+)\\((.*)\\)", line)
+        ms = re.match("([^.\\s]+)\\.([^\\(\\s]+)\\((.*)\\)", line)
         if ms is not None:
             tp = ms.groups()
             args = tp[2].split(", ")
