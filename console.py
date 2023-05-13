@@ -60,8 +60,9 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb)"
     allowed_classes = {"BaseModel": BaseModel, "User": User,
-                       "State": State, "Amenity": Amenity,
-                       "Place": Place, "Review": Review}
+                       "State": State, "City": Class,
+                       "Amenity": Amenity, "Place": Place,
+                       "Review": Review}
 
     def do_quit(self, line):
         """
