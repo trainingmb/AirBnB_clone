@@ -14,7 +14,7 @@ def issentence(s):
             (len(s.split(" ")) > 2))
 
 
-class BaseModelTestCase(unittest.TestCase):
+class AmenityTestCase(unittest.TestCase):
     """
     Amenity for testing BaseModel
     """
@@ -27,7 +27,11 @@ class BaseModelTestCase(unittest.TestCase):
         self.assertTrue(am1.len == 0)
 
     def test_doc(self):
-        bm1 = BaseModel()
-        self.assertIsInstance(bm1.__doc__, str)
-        self.assertTrue(len(bm1.__doc__) > 0)
-        self.assertTrue(issentence(bm1.__doc__))
+        am1 = Amenity()
+        self.assertIsInstance(am1.__doc__, str)
+        self.assertTrue(len(am1.__doc__) > 0)
+        self.assertTrue(issentence(am1.__doc__))
+
+
+if __name__ == '__main__':
+    unittest.main()
