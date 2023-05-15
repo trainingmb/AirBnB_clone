@@ -10,6 +10,7 @@ class State(BaseModel):
     """
     Doc string for the State Class
     """
+    name = ""
     def __init__(self, *args, **kwargs):
         """
         Init for State with a public class

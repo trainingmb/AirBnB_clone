@@ -10,6 +10,9 @@ class Review(BaseModel):
     """
     Doc string for the Review Class
     """
+    place_id = ""
+    user_id = ""
+    text = ""
     def __init__(self, *args, **kwargs):
         """
         Public class attributes:

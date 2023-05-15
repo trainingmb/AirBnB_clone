@@ -10,6 +10,8 @@ class City(BaseModel):
     """
     Doc string for the City Class
     """
+    state_id = ""
+    name = ""
     def __init__(self, *args, **kwargs):
         """
         Public class attributes:

@@ -10,6 +10,7 @@ class Amenity(BaseModel):
     """
     Doc string for the Amenity Class
     """
+    name = ""
     def __init__(self, *args, **kwargs):
         """
         Public class attributes:

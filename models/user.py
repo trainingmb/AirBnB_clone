@@ -10,6 +10,10 @@ class User(BaseModel):
     """
     doc string for the User Class
     """
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""
     def __init__(self, *args, **kwargs):
         """
         Initilizer for User
