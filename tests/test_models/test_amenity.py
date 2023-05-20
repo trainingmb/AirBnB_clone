@@ -2,8 +2,7 @@
 """
 Test Case Model for Amenity
 """
-from models.amenity import Amenity
-from models.base_model import BaseModel
+from models.amenity import Amenity, BaseModel
 
 
 def issentence(s):
