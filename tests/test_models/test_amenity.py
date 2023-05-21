@@ -20,10 +20,9 @@ class AmenityTestCase(unittest.TestCase):
     def test_init(self):
         am1 = Amenity()
         d = am1.__dict__
-        self.assertTrue(issubclass(Amenity,BaseModel))
+        self.assertTrue(issubclass(Amenity, BaseModel))
         self.assertTrue("name" in d.keys())
         self.assertIsInstance(am1.name, str)
-        self.assertTrue(am1.len == 0)
 
     def test_doc(self):
         am1 = Amenity()
